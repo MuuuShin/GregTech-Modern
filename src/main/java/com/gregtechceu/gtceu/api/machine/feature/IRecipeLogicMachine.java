@@ -19,21 +19,35 @@ public interface IRecipeLogicMachine extends IRecipeCapabilityHolder, IMachineFe
 
     /**
      * RecipeType held
+     * @deprecated Use {@link RecipeLogic#getRecipeTypes()} instead.
      */
     @NotNull
+    @Deprecated
     default GTRecipeType[] getRecipeTypes() {
         return getRecipeLogic().getRecipeTypes();
     }
 
+    /**
+     * @deprecated Use {@link RecipeLogic#getRecipeType()} instead.
+     */
     @NotNull
+    @Deprecated
     default GTRecipeType getRecipeType() {
         return getRecipeLogic().getRecipeType();
     }
 
+    /**
+     * @deprecated Use {@link RecipeLogic#getActiveRecipeType()} instead.
+     */
+    @Deprecated
     default int getActiveRecipeType() {
         return getRecipeLogic().getActiveRecipeType();
     }
 
+    /**
+     * @deprecated Use {@link RecipeLogic#getActiveRecipeType()} instead.
+     */
+    @Deprecated
     default void setActiveRecipeType(int type) {
         getRecipeLogic().setActiveRecipeType(type);
     }
