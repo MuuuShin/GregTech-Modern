@@ -608,7 +608,7 @@ public class IntProviderFluidIngredientTest {
         int batches = 1; // unused on this test
         int parallels = 16;
         final int amount = 40 * batches * parallels;
-        busHolder.controller.setBatchEnabled(false);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(false);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         itemIn.setStackInSlot(0, COBBLE.copyWithCount(batches * parallels));
@@ -682,7 +682,7 @@ public class IntProviderFluidIngredientTest {
         int parallels = 16;
         fluidIn.setFluidInTank(0, new FluidStack(LCENT_OUT, 16));
 
-        busHolder.controller.setBatchEnabled(false);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(false);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         // 1t to turn on, 1t per recipe run
@@ -758,7 +758,7 @@ public class IntProviderFluidIngredientTest {
         int batches = 16;
         int parallels = 1;
         final int amount = 40 * batches * parallels;
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         itemIn.setStackInSlot(0, COBBLE.copyWithCount(batches * parallels));
@@ -832,7 +832,7 @@ public class IntProviderFluidIngredientTest {
         int parallels = 1; // unused on this test
         fluidIn.setFluidInTank(0, new FluidStack(LCENT_OUT, 16));
 
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         // 1t to turn on, 1t per recipe run
@@ -908,7 +908,7 @@ public class IntProviderFluidIngredientTest {
         int batches = 16;
         int parallels = 16;
         final int amount = batches * parallels * 40;
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         int stacks = batches * parallels / 64;
@@ -985,7 +985,7 @@ public class IntProviderFluidIngredientTest {
 
         int batches = 16;
         int parallels = 16;
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         fluidIn.setFluidInTank(0, new FluidStack(LCENT_OUT, batches * parallels));

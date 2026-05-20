@@ -66,7 +66,7 @@ public class CleanroomLogic extends RecipeLogic implements IWorkable {
             if (maintenanceMachine == null || maintenanceMachine.getNumMaintenanceProblems() < 6 || zone != null) {
                 // drain the energy
                 if (!consumeEnergy()) {
-                    if (progress > 0 && getMachine().regressWhenWaiting()) {
+                    if (progress > 0 && regressWhenWaiting) {
                         this.progress = 1;
                     }
 

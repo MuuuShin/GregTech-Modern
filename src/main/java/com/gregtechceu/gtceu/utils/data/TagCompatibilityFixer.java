@@ -6,8 +6,18 @@ import net.minecraft.nbt.Tag;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TagCompatibilityFixer {
+
+    public static void fixRecipeLogicTag(CompoundTag tag) {
+        if (!tag.contains("recipeLogic")) return;
+
+        if (tag.contains("batchEnabled")) {
+            tag.getCompound("recipeLogic").put("batchEnabled", Objects.requireNonNull(tag.get("batchEnabled")));
+        }
+    }
 
     public static void fixMachineAutoOutputTag(CompoundTag machineTag) {
         if (!machineTag.contains("autoOutput")) {

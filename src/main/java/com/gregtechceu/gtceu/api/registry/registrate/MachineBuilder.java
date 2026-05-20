@@ -141,8 +141,6 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
     @NotNull
     @Getter
     private Consumer<IRecipeLogicMachine> afterWorking = (machine) -> {};
-    @Getter
-    private boolean regressWhenWaiting = true;
     private boolean allowCoverOnFront = false;
     private Supplier<BlockState> appearance;
     @Getter // getter for KJS
@@ -278,11 +276,6 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
 
     public TYPE afterWorking(Consumer<IRecipeLogicMachine> afterWorking) {
         this.afterWorking = afterWorking;
-        return getThis();
-    }
-
-    public TYPE regressWhenWaiting(boolean regressWhenWaiting) {
-        this.regressWhenWaiting = regressWhenWaiting;
         return getThis();
     }
 
@@ -690,7 +683,6 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
         definition.setOnWorking(this.onWorking);
         definition.setOnWaiting(this.onWaiting);
         definition.setAfterWorking(this.afterWorking);
-        definition.setRegressWhenWaiting(this.regressWhenWaiting);
         definition.setAllowCoverOnFront(this.allowCoverOnFront);
 
         for (GTRecipeType type : recipeTypes) {

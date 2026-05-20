@@ -101,25 +101,6 @@ public interface IRecipeLogicMachine extends IRecipeCapabilityHolder, IMachineFe
         self().getDefinition().getAfterWorking().accept(this);
     }
 
-    /**
-     * Whether progress decrease when machine is waiting for pertick ingredients. (e.g. lack of EU)
-     */
-    default boolean regressWhenWaiting() {
-        return self().getDefinition().isRegressWhenWaiting();
-    }
-
-    /**
-     * Always try {@link IRecipeLogicMachine#fullModifyRecipe(GTRecipe)} before setting up recipe.
-     * 
-     * @return true - will map {@link RecipeLogic#lastOriginRecipe} to the latest recipe for next round when finishing.
-     *         false - keep using the {@link RecipeLogic#lastRecipe}, which is already modified.
-     */
-    default boolean alwaysTryModifyRecipe() {
-        // make it *always* do overclock and parallel so that the machine doesn't get stuck running a lower-tier recipe
-        // in any possible scenario.
-        return true;
-    }
-
     default boolean shouldWorkingPlaySound() {
         return ConfigHolder.INSTANCE.machines.machineSounds &&
                 (!(self() instanceof IMufflableMachine mufflableMachine) || !mufflableMachine.isMuffled());

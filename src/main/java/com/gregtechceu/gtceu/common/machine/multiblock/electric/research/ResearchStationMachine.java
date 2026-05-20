@@ -40,6 +40,7 @@ public class ResearchStationMachine extends WorkableElectricMultiblockMachine
 
     public ResearchStationMachine(BlockEntityCreationInfo info) {
         super(info, new ResearchStationRecipeLogic());
+        getRecipeLogic().regressWhenWaiting(false);
     }
 
     @Override
@@ -92,11 +93,6 @@ public class ResearchStationMachine extends WorkableElectricMultiblockMachine
         }
         objectHolder = null;
         super.onStructureInvalid();
-    }
-
-    @Override
-    public boolean regressWhenWaiting() {
-        return false;
     }
 
     @Override

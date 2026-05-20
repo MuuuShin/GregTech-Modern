@@ -43,6 +43,8 @@ public class LargeTurbineMachine extends WorkableElectricMultiblockMachine imple
         super(info);
         this.tier = tier;
         this.BASE_EU_OUTPUT = GTValues.V[tier] * 2;
+
+        getRecipeLogic().regressWhenWaiting(false);
     }
 
     @Nullable
@@ -165,11 +167,6 @@ public class LargeTurbineMachine extends WorkableElectricMultiblockMachine imple
                 .parallels(actualParallel)
                 .durationMultiplier(holderEfficiency)
                 .build();
-    }
-
-    @Override
-    public boolean regressWhenWaiting() {
-        return false;
     }
 
     @Override

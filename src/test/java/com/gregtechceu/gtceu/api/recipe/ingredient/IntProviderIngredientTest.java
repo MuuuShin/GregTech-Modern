@@ -595,7 +595,7 @@ public class IntProviderIngredientTest {
 
         int batches = 1; // unused on this test
         int parallels = 16;
-        busHolder.controller.setBatchEnabled(false);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(false);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         itemIn.setStackInSlot(0, LCENT_IN.copyWithCount(64));
@@ -669,7 +669,7 @@ public class IntProviderIngredientTest {
         int parallels = 16;
         itemIn.setStackInSlot(0, LCENT_OUT.copyWithCount(16));
 
-        busHolder.controller.setBatchEnabled(false);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(false);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         // 1t to turn on, 1t per recipe run
@@ -743,7 +743,7 @@ public class IntProviderIngredientTest {
 
         int batches = 16;
         int parallels = 1; // unused on this test
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         itemIn.setStackInSlot(0, LCENT_IN.copyWithCount(64));
@@ -817,7 +817,7 @@ public class IntProviderIngredientTest {
         int parallels = 1; // unused on this test
         itemIn.setStackInSlot(0, LCENT_OUT.copyWithCount(16));
 
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         // 1t to turn on, 1t per recipe run
@@ -891,7 +891,7 @@ public class IntProviderIngredientTest {
 
         int batches = 16;
         int parallels = 16;
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         int j;
@@ -975,7 +975,7 @@ public class IntProviderIngredientTest {
 
         int batches = 16;
         int parallels = 16;
-        busHolder.controller.setBatchEnabled(true);
+        busHolder.controller.getRecipeLogic().setBatchEnabled(true);
         busHolder.parallelHatch.setCurrentParallel(parallels);
 
         for (int j = 0; j < batches; j++) {

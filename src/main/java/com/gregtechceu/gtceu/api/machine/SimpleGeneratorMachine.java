@@ -49,6 +49,8 @@ public class SimpleGeneratorMachine extends WorkableTieredMachine
         this.hazardEmitter = attachTrait(
                 new EnvironmentalHazardEmitterTrait(GTMedicalConditions.CARBON_MONOXIDE_POISONING,
                         hazardStrengthPerOperation));
+
+        getRecipeLogic().regressWhenWaiting(false);
     }
 
     public SimpleGeneratorMachine(BlockEntityCreationInfo info, int tier, Int2IntFunction tankScalingFunction) {
@@ -102,11 +104,6 @@ public class SimpleGeneratorMachine extends WorkableTieredMachine
                 .eutMultiplier(parallels)
                 .parallels(parallels)
                 .build();
-    }
-
-    @Override
-    public boolean regressWhenWaiting() {
-        return false;
     }
 
     @Override

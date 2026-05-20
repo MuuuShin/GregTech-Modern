@@ -5,6 +5,7 @@ import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.data.medicalcondition.MedicalCondition;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IOverclockMachine;
+import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockControllerMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
@@ -105,8 +106,7 @@ public class GTRecipeModifiers {
     }
 
     public static @NotNull ModifierFunction batchMode(@NotNull MetaMachine machine, @NotNull GTRecipe recipe) {
-        if (machine instanceof MultiblockControllerMachine controller && controller.isFormed() &&
-                controller.isBatchEnabled()) {
+        if (machine instanceof IRecipeLogicMachine rl && rl.getRecipeLogic().isBatchEnabled()) {
             if (recipe.duration < ConfigHolder.INSTANCE.machines.batchDuration) {
                 int parallel = ConfigHolder.INSTANCE.machines.batchDuration / recipe.duration;
                 parallel = ParallelLogic.getParallelAmountWithoutEU(machine, recipe, parallel);

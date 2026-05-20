@@ -32,7 +32,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraftforge.fluids.FluidStack;
 
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -58,6 +57,7 @@ public class LargeCombustionEngineMachine extends WorkableElectricMultiblockMach
     public LargeCombustionEngineMachine(BlockEntityCreationInfo info, int tier) {
         super(info);
         this.tier = tier;
+        getRecipeLogic().regressWhenWaiting(false);
     }
 
     private boolean isIntakesObstructed() {
@@ -121,7 +121,7 @@ public class LargeCombustionEngineMachine extends WorkableElectricMultiblockMach
      * @param recipe  recipe
      * @return A {@link ModifierFunction} for the given Combustion Engine
      */
-    public static ModifierFunction recipeModifier(@NotNull MetaMachine machine, @NotNull GTRecipe recipe) {
+    public static ModifierFunction recipeModifier(MetaMachine machine, GTRecipe recipe) {
         if (!(machine instanceof LargeCombustionEngineMachine engineMachine)) {
             return RecipeModifier.nullWrongType(LargeCombustionEngineMachine.class, machine);
         }
@@ -169,11 +169,6 @@ public class LargeCombustionEngineMachine extends WorkableElectricMultiblockMach
         if (runningTimer > 72000) runningTimer %= 72000; // reset once every hour of running
 
         return value;
-    }
-
-    @Override
-    public boolean regressWhenWaiting() {
-        return false;
     }
 
     //////////////////////////////////////

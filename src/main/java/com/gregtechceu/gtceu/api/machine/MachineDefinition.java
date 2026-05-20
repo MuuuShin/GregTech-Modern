@@ -90,9 +90,6 @@ public class MachineDefinition implements Supplier<MetaMachineBlock> {
     @Getter
     @Setter
     private Consumer<IRecipeLogicMachine> afterWorking = (machine) -> {};
-    @Getter
-    @Setter
-    private boolean regressWhenWaiting = true;
     /** Whether this machine can be rotated or face upwards. */
     @Getter
     @Setter

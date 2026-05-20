@@ -29,6 +29,7 @@ import com.gregtechceu.gtceu.utils.GTMath;
 
 import com.lowdragmc.lowdraglib.gui.texture.IGuiTexture;
 
+import lombok.experimental.Accessors;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -133,6 +134,7 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
     protected long totalContinuousRunningTime;
     protected int runAttempt = 0;
     protected int runDelay = 0;
+
     @SaveField
     @Getter
     @Setter
@@ -140,8 +142,32 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
     @Getter
     @SaveField(nbtKey = "chance_cache")
     protected final IdentityHashMap<RecipeCapability<?>, Object2IntMap<?>> chanceCaches = makeChanceCaches();
+
     protected @Nullable TickableSubscription subscription;
     protected @Nullable Object workingSound;
+
+    @Getter
+    @Setter
+    @SaveField
+    protected boolean batchEnabled = false;
+
+    /**
+     * Whether progress decrease when machine is waiting for pertick ingredients. (e.g. lack of EU)
+     */
+    @Getter
+    @Setter
+    @Accessors(fluent = true)
+    protected boolean regressWhenWaiting = true;
+
+    /**
+     * Always try {@link IRecipeLogicMachine#fullModifyRecipe(GTRecipe)} before setting up recipe.
+     * Defaults to true, to make it *always* do overclock and parallel so that the machine doesn't get
+     * stuck running a lower-tier recipe in any possible scenario.
+     */
+    @Getter
+    @Setter
+    @Accessors(fluent = true)
+    protected boolean shouldAlwaysTryModifyRecipe = true;
 
     public RecipeLogic() {
         super();
@@ -340,7 +366,7 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
     }
 
     protected void regressRecipe() {
-        if (progress > 0 && getRLMachine().regressWhenWaiting()) {
+        if (progress > 0 && regressWhenWaiting) {
             this.progress = 1;
         }
     }
@@ -538,7 +564,7 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
                 lastRecipe = null;
                 return;
             }
-            if (getRLMachine().alwaysTryModifyRecipe()) {
+            if (shouldAlwaysTryModifyRecipe) {
                 if (lastOriginRecipe != null) {
                     var modified = getRLMachine().fullModifyRecipe(lastOriginRecipe.copy());
                     if (modified == null) {

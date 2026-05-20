@@ -223,14 +223,6 @@ public class MultiblockControllerMachine extends MetaMachine {
         return Optional.ofNullable(parallelHatch);
     }
 
-    /**
-     *
-     * @return Whether batching is enabled on this multiblock
-     */
-    public boolean isBatchEnabled() {
-        return false;
-    }
-
     public void setFlipped(boolean flipped) {
         isFlipped = flipped;
         syncDataHolder.markClientSyncFieldDirty("isFlipped");
@@ -252,8 +244,6 @@ public class MultiblockControllerMachine extends MetaMachine {
                 this.parts.stream().map(part -> part.self().getBlockPos()).toArray(BlockPos[]::new);
         syncDataHolder.markClientSyncFieldDirty("partPositions");
     }
-
-    public void setBatchEnabled(boolean batch) {}
 
     /**
      * should add part to the part list.

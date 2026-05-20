@@ -31,11 +31,8 @@ public class AirScrubberMachine extends SimpleTieredMachine {
     public AirScrubberMachine(BlockEntityCreationInfo info, int tier) {
         super(info, tier, GTMachineUtils.largeTankSizeFunction);
         this.cleanerTrait = attachTrait(new EnvironmentalHazardCleanerTrait(tier / 2, this::validateCleaningOperation));
-    }
 
-    @Override
-    public boolean regressWhenWaiting() {
-        return false;
+        getRecipeLogic().regressWhenWaiting(false);
     }
 
     public boolean validateCleaningOperation(MedicalCondition condition, float amount) {
