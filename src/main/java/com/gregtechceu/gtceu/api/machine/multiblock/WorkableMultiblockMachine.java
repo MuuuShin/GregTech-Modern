@@ -6,8 +6,8 @@ import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.capability.recipe.IRecipeHandler;
 import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
 import com.gregtechceu.gtceu.api.machine.feature.IMufflableMachine;
+import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
-import com.gregtechceu.gtceu.api.machine.feature.multiblock.IWorkableMultiController;
 import com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties;
 import com.gregtechceu.gtceu.api.machine.trait.*;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.VisibleForTesting;
 import java.util.*;
 
 public abstract class WorkableMultiblockMachine extends MultiblockControllerMachine
-                                                implements IWorkableMultiController, IMufflableMachine {
+                                                implements IRecipeLogicMachine, IMufflableMachine {
 
     @Getter
     protected final CleanroomReceiverTrait cleanroomReceiver;
@@ -201,7 +201,7 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
 
     @Nullable
     protected GTRecipe getRealRecipe(GTRecipe recipe) {
-        return self().getDefinition().getRecipeModifier().applyModifier(self(), recipe);
+        return getDefinition().getRecipeModifier().applyModifier(this, recipe);
     }
 
     public void updateActiveBlocks(boolean active) {
@@ -226,7 +226,7 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
 
     @Override
     public void notifyStatusChanged(RecipeLogic.Status oldStatus, RecipeLogic.Status newStatus) {
-        IWorkableMultiController.super.notifyStatusChanged(oldStatus, newStatus);
+        IRecipeLogicMachine.super.notifyStatusChanged(oldStatus, newStatus);
         if (newStatus == RecipeLogic.Status.WORKING || oldStatus == RecipeLogic.Status.WORKING) {
             updateActiveBlocks(newStatus == RecipeLogic.Status.WORKING);
         }
@@ -248,7 +248,7 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
         for (IMultiPart part : getParts()) {
             part.afterWorking(this);
         }
-        IWorkableMultiController.super.afterWorking();
+        IRecipeLogicMachine.super.afterWorking();
     }
 
     @Override
@@ -258,7 +258,7 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
                 return false;
             }
         }
-        return IWorkableMultiController.super.beforeWorking(recipe);
+        return IRecipeLogicMachine.super.beforeWorking(recipe);
     }
 
     @Override
@@ -268,7 +268,7 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
                 return false;
             }
         }
-        return IWorkableMultiController.super.onWorking();
+        return IRecipeLogicMachine.super.onWorking();
     }
 
     @Override
@@ -276,7 +276,7 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
         for (IMultiPart part : getParts()) {
             part.onWaiting(this);
         }
-        IWorkableMultiController.super.onWaiting();
+        IRecipeLogicMachine.super.onWaiting();
     }
 
     @Override
@@ -286,7 +286,7 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
                 part.onPaused(this);
             }
         }
-        IWorkableMultiController.super.setWorkingEnabled(isWorkingAllowed);
+        IRecipeLogicMachine.super.setWorkingEnabled(isWorkingAllowed);
     }
 
     public GTRecipeType getRecipeType() {

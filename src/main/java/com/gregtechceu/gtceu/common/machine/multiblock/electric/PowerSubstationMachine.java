@@ -331,7 +331,7 @@ public class PowerSubstationMachine extends WorkableMultiblockMachine
     public Widget createUIWidget() {
         var group = new WidgetGroup(0, 0, 182 + 8, 117 + 8);
         group.addWidget(new DraggableScrollableWidgetGroup(4, 4, 182, 117).setBackground(getScreenTexture())
-                .addWidget(new LabelWidget(4, 5, self().getBlockState().getBlock().getDescriptionId()))
+                .addWidget(new LabelWidget(4, 5, getBlockState().getBlock().getDescriptionId()))
                 .addWidget(new ComponentPanelWidget(4, 17, this::addDisplayText)
                         .setMaxWidthLimit(150)
                         .clickHandler(this::handleDisplayClick)));

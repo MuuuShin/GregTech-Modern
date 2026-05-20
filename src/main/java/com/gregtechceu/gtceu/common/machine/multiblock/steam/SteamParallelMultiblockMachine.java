@@ -169,7 +169,7 @@ public class SteamParallelMultiblockMachine extends WorkableMultiblockMachine im
     @Override
     public ModularUI createUI(Player entityPlayer) {
         var screen = new DraggableScrollableWidgetGroup(7, 4, 162, 121).setBackground(getScreenTexture());
-        screen.addWidget(new LabelWidget(4, 5, self().getBlockState().getBlock().getDescriptionId()));
+        screen.addWidget(new LabelWidget(4, 5, getBlockState().getBlock().getDescriptionId()));
         screen.addWidget(new ComponentPanelWidget(4, 17, this::addDisplayText)
                 .setMaxWidthLimit(150)
                 .clickHandler(this::handleDisplayClick));

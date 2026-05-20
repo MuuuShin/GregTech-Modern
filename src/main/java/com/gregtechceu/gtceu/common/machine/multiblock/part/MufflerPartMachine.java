@@ -10,8 +10,8 @@ import com.gregtechceu.gtceu.api.gui.widget.SlotWidget;
 import com.gregtechceu.gtceu.api.machine.TickableSubscription;
 import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IUIMachine;
-import com.gregtechceu.gtceu.api.machine.feature.multiblock.IWorkableMultiController;
 import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockControllerMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredPartMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SaveField;
@@ -99,9 +99,9 @@ public class MufflerPartMachine extends TieredPartMachine implements IUIMachine 
     }
 
     @Override
-    public boolean afterWorking(IWorkableMultiController controller) {
+    public boolean afterWorking(WorkableMultiblockMachine controller) {
         hazardEmitter.emitHazard();
-        var supplier = controller.self().getDefinition().getRecoveryItems();
+        var supplier = controller.getDefinition().getRecoveryItems();
         if (supplier != null) {
             recoverItemsTable(supplier.get());
         }
