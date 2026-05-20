@@ -147,13 +147,14 @@ public class SimpleGeneratorMachine extends WorkableTieredMachine
                     storages.put(IO.IN, FluidRecipeCapability.CAP, generatorMachine.importFluids);
                     storages.put(IO.OUT, FluidRecipeCapability.CAP, generatorMachine.exportFluids);
 
-                    generatorMachine.getRecipeType().getRecipeUI().createEditableUITemplate(false, false).setupUI(
-                            template,
-                            new GTRecipeTypeUI.RecipeHolder(generatorMachine.recipeLogic::getProgressPercent,
-                                    storages,
-                                    new CompoundTag(),
-                                    Collections.emptyList(),
-                                    false, false));
+                    generatorMachine.getRecipeLogic().getRecipeType().getRecipeUI()
+                            .createEditableUITemplate(false, false).setupUI(
+                                    template,
+                                    new GTRecipeTypeUI.RecipeHolder(generatorMachine.recipeLogic::getProgressPercent,
+                                            storages,
+                                            new CompoundTag(),
+                                            Collections.emptyList(),
+                                            false, false));
                     createEnergyBar().setupUI(template, generatorMachine);
                 }
             }));

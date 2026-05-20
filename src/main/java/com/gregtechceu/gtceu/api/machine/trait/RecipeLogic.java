@@ -14,6 +14,7 @@ import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockControllerMachine;
 import com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties;
 import com.gregtechceu.gtceu.api.recipe.ActionResult;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
+import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.modifier.ModifierFunction;
 import com.gregtechceu.gtceu.api.registry.GTRegistries;
@@ -29,7 +30,6 @@ import com.gregtechceu.gtceu.utils.GTMath;
 
 import com.lowdragmc.lowdraglib.gui.texture.IGuiTexture;
 
-import lombok.experimental.Accessors;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -43,6 +43,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
 
@@ -72,9 +74,17 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
         }
     }
 
-    public static final EnumProperty<RecipeLogic.Status> STATUS_PROPERTY = GTMachineModelProperties.RECIPE_LOGIC_STATUS;
+    public static final EnumProperty<Status> STATUS_PROPERTY = GTMachineModelProperties.RECIPE_LOGIC_STATUS;
 
     public @Nullable List<GTRecipe> lastFailedMatches;
+
+    @Getter
+    private GTRecipeType[] recipeTypes;
+
+    @Getter
+    @Setter
+    @SaveField
+    private int activeRecipeType;
 
     @Getter
     @SaveField
@@ -171,6 +181,7 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
 
     public RecipeLogic() {
         super();
+        recipeTypes = new GTRecipeType[0];
     }
 
     public IRecipeLogicMachine getRLMachine() {
@@ -214,6 +225,24 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
     public void onMachineLoad() {
         super.onMachineLoad();
         updateTickSubscription();
+        recipeTypes = getMachine().getDefinition().getRecipeTypes();
+    }
+
+    public GTRecipeType getRecipeType() {
+        return recipeTypes[activeRecipeType];
+    }
+
+    /**
+     * Sets a recipe type of the machine.
+     * FOR INTERNAL / TESTING USE ONLY!
+     * NOT SUPPORTED FOR PRODUCTION USE!
+     *
+     * @param newType The new recipe type
+     */
+    @ApiStatus.Internal
+    @VisibleForTesting
+    public void setRecipeType(GTRecipeType newType) {
+        recipeTypes[activeRecipeType] = newType;
     }
 
     public void updateTickSubscription() {
@@ -372,7 +401,7 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
     }
 
     public Iterator<GTRecipe> searchRecipe() {
-        return getRLMachine().getRecipeType().searchRecipe(getRLMachine(), r -> true);
+        return getRecipeType().searchRecipe(getRLMachine(), r -> true);
     }
 
     public void findAndHandleRecipe() {
@@ -616,7 +645,7 @@ public class RecipeLogic extends MachineTrait implements IWorkable, IFancyToolti
     @OnlyIn(Dist.CLIENT)
     public void updateSound() {
         if (isWorking() && getRLMachine().shouldWorkingPlaySound()) {
-            var sound = getRLMachine().getRecipeType().getSound();
+            var sound = getRecipeType().getSound();
             if (workingSound instanceof AutoReleasedSound soundEntry) {
                 if (soundEntry.soundEntry == sound && !soundEntry.isStopped()) {
                     return;

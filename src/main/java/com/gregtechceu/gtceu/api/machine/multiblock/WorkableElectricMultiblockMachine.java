@@ -17,7 +17,6 @@ import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.misc.EnergyContainerList;
 import com.gregtechceu.gtceu.api.recipe.modifier.RecipeModifierList;
-import com.gregtechceu.gtceu.api.sync_system.annotations.SaveField;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ParallelHatchPartMachine;
 import com.gregtechceu.gtceu.utils.GTUtil;
@@ -116,7 +115,7 @@ public class WorkableElectricMultiblockMachine extends WorkableMultiblockMachine
                 .setWorkingStatus(recipeLogic.isWorkingEnabled(), recipeLogic.isActive())
                 .addEnergyUsageLine(energyContainer)
                 .addEnergyTierLine(tier)
-                .addMachineModeLine(getRecipeType(), getRecipeTypes().length > 1)
+                .addMachineModeLine(getRecipeLogic().getRecipeType(), getRecipeLogic().getRecipeTypes().length > 1)
                 .addTotalRunsLine(totalRuns)
                 .addParallelsLine(numParallels, exact)
                 .addSubtickParallelsLine(subtickParallels)

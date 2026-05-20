@@ -21,14 +21,22 @@ public interface IRecipeLogicMachine extends IRecipeCapabilityHolder, IMachineFe
      * RecipeType held
      */
     @NotNull
-    GTRecipeType[] getRecipeTypes();
+    default GTRecipeType[] getRecipeTypes() {
+        return getRecipeLogic().getRecipeTypes();
+    }
 
     @NotNull
-    GTRecipeType getRecipeType();
+    default GTRecipeType getRecipeType() {
+        return getRecipeLogic().getRecipeType();
+    }
 
-    int getActiveRecipeType();
+    default int getActiveRecipeType() {
+        return getRecipeLogic().getActiveRecipeType();
+    }
 
-    void setActiveRecipeType(int type);
+    default void setActiveRecipeType(int type) {
+        getRecipeLogic().setActiveRecipeType(type);
+    }
 
     /**
      * Called when recipe logic status changed

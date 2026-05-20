@@ -62,13 +62,15 @@ public class PrimitiveBlastFurnaceMachine extends PrimitiveWorkableMachine imple
 
     @Override
     protected NotifiableItemStackHandler createImportItemHandler() {
-        return new NotifiableItemStackHandler(getRecipeType().getMaxInputs(ItemRecipeCapability.CAP), IO.IN,
+        return new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxInputs(ItemRecipeCapability.CAP),
+                IO.IN,
                 IO.NONE);
     }
 
     @Override
     protected NotifiableItemStackHandler createExportItemHandler() {
-        return new NotifiableItemStackHandler(getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP), IO.OUT,
+        return new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP),
+                IO.OUT,
                 IO.NONE);
     }
 

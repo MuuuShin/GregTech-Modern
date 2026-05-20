@@ -51,14 +51,15 @@ public class SteamSolidBoilerMachine extends SteamBoilerMachine {
             }
             return FUEL_CACHE.computeIfAbsent(itemStack.getItem(), item -> {
                 if (isRemote()) return true;
-                return recipeLogic.getRecipeManager().getAllRecipesFor(getRecipeType()).stream().anyMatch(recipe -> {
-                    var list = recipe.inputs.getOrDefault(ItemRecipeCapability.CAP, Collections.emptyList());
-                    if (!list.isEmpty()) {
-                        return Arrays.stream(ItemRecipeCapability.CAP.of(list.get(0).content).getItems())
-                                .map(ItemStack::getItem).anyMatch(i -> i == item);
-                    }
-                    return false;
-                });
+                return recipeLogic.getRecipeManager().getAllRecipesFor(recipeLogic.getRecipeType()).stream()
+                        .anyMatch(recipe -> {
+                            var list = recipe.inputs.getOrDefault(ItemRecipeCapability.CAP, Collections.emptyList());
+                            if (!list.isEmpty()) {
+                                return Arrays.stream(ItemRecipeCapability.CAP.of(list.get(0).content).getItems())
+                                        .map(ItemStack::getItem).anyMatch(i -> i == item);
+                            }
+                            return false;
+                        });
             });
         });
         this.ashHandler = attachTrait(new NotifiableItemStackHandler(1, IO.OUT, IO.OUT));

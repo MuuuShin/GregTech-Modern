@@ -9,7 +9,6 @@ import com.gregtechceu.gtceu.api.item.tool.GTToolType;
 import com.gregtechceu.gtceu.api.machine.feature.IMufflableMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
 import com.gregtechceu.gtceu.api.machine.trait.*;
-import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sync_system.annotations.RerenderOnChanged;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SaveField;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SyncToClient;
@@ -45,11 +44,6 @@ public abstract class SteamWorkableMachine extends SteamMachine
     @SaveField
     @SyncToClient
     public final RecipeLogic recipeLogic;
-    @Getter
-    public final GTRecipeType[] recipeTypes;
-    @Getter
-    @Setter
-    public int activeRecipeType;
     @SaveField
     @SyncToClient
     @RerenderOnChanged
@@ -70,8 +64,6 @@ public abstract class SteamWorkableMachine extends SteamMachine
                                 RecipeLogic recipeLogic,
                                 NotifiableFluidTank steamTank) {
         super(info, isHighPressure, steamTank);
-        this.recipeTypes = getDefinition().getRecipeTypes();
-        this.activeRecipeType = 0;
         this.cleanroomReceiver = attachTrait(new CleanroomReceiverTrait());
         this.recipeLogic = attachTrait(recipeLogic);
         this.capabilitiesProxy = new EnumMap<>(IO.class);
@@ -165,11 +157,6 @@ public abstract class SteamWorkableMachine extends SteamMachine
     @Override
     public boolean keepSubscribing() {
         return false;
-    }
-
-    @Override
-    public GTRecipeType getRecipeType() {
-        return recipeTypes[activeRecipeType];
     }
 
     @Override

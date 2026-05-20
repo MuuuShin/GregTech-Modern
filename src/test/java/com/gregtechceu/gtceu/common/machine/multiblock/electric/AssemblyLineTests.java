@@ -62,7 +62,7 @@ public class AssemblyLineTests {
         WorkableMultiblockMachine controller = (WorkableMultiblockMachine) helper.getBlockEntity(new BlockPos(0, 3, 0));
         assert controller != null;
         TestUtils.formMultiblock(controller);
-        controller.setRecipeType(ASSLINE_RECIPE_TYPE);
+        controller.getRecipeLogic().setRecipeType(ASSLINE_RECIPE_TYPE);
         ItemBusPartMachine inputBus1 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(0, 1, 1));
         ItemBusPartMachine inputBus2 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
         ItemBusPartMachine inputBus3 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(2, 1, 1));

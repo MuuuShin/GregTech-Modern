@@ -237,7 +237,7 @@ public class NBTPredicateTest {
     public static void NBTPredicateMachineCRTestSucceeds(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
         assert machine != null;
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -257,7 +257,7 @@ public class NBTPredicateTest {
     public static void NBTPredicateMachineCRTestDoesntSucceed(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
         assert machine != null;
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -277,7 +277,7 @@ public class NBTPredicateTest {
     public static void NBTPredicateMachineCRTestChanced(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
         assert machine != null;
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -304,7 +304,7 @@ public class NBTPredicateTest {
     public static void NBTPredicateMachineCRTestRanged(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
         assert machine != null;
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -331,7 +331,7 @@ public class NBTPredicateTest {
     public static void NBTPredicateMachineCRTestChancedRanged(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
         assert machine != null;
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine

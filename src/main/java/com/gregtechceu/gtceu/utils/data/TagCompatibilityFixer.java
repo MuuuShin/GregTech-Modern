@@ -17,6 +17,10 @@ public final class TagCompatibilityFixer {
         if (tag.contains("batchEnabled")) {
             tag.getCompound("recipeLogic").put("batchEnabled", Objects.requireNonNull(tag.get("batchEnabled")));
         }
+
+        if (tag.contains("activeRecipeType")) {
+            tag.getCompound("recipeLogic").put("activeRecipeType", Objects.requireNonNull(tag.get("activeRecipeType")));
+        }
     }
 
     public static void fixMachineAutoOutputTag(CompoundTag machineTag) {

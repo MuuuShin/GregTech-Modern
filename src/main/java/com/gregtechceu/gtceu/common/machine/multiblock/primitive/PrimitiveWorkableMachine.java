@@ -50,20 +50,22 @@ public class PrimitiveWorkableMachine extends WorkableMultiblockMachine {
     //////////////////////////////////////
 
     protected NotifiableItemStackHandler createImportItemHandler() {
-        return new NotifiableItemStackHandler(getRecipeType().getMaxInputs(ItemRecipeCapability.CAP), IO.IN);
+        return new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxInputs(ItemRecipeCapability.CAP),
+                IO.IN);
     }
 
     protected NotifiableItemStackHandler createExportItemHandler() {
-        return new NotifiableItemStackHandler(getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP), IO.OUT);
+        return new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP),
+                IO.OUT);
     }
 
     protected NotifiableFluidTank createImportFluidHandler() {
-        return new NotifiableFluidTank(getRecipeType().getMaxInputs(FluidRecipeCapability.CAP),
+        return new NotifiableFluidTank(getRecipeLogic().getRecipeType().getMaxInputs(FluidRecipeCapability.CAP),
                 32 * FluidType.BUCKET_VOLUME, IO.IN);
     }
 
     protected NotifiableFluidTank createExportFluidHandler() {
-        return new NotifiableFluidTank(getRecipeType().getMaxOutputs(FluidRecipeCapability.CAP),
+        return new NotifiableFluidTank(getRecipeLogic().getRecipeType().getMaxOutputs(FluidRecipeCapability.CAP),
                 32 * FluidType.BUCKET_VOLUME, IO.OUT);
     }
 

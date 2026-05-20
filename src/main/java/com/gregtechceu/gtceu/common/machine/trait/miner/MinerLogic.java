@@ -149,9 +149,9 @@ public class MinerLogic extends RecipeLogic implements IRecipeCapabilityHolder {
     @Override
     public void onMachineLoad() {
         this.inputItemHandler = new ItemRecipeHandler(IO.IN,
-                getRLMachine().getRecipeType().getMaxInputs(ItemRecipeCapability.CAP));
+                getRecipeType().getMaxInputs(ItemRecipeCapability.CAP));
         this.outputItemHandler = new ItemRecipeHandler(IO.OUT,
-                getRLMachine().getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP));
+                getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP));
 
         RecipeHandlerList inHandlers = RecipeHandlerList.of(IO.IN, inputItemHandler, new IgnoreEnergyRecipeHandler());
         RecipeHandlerList outHandlers = RecipeHandlerList.of(IO.OUT, outputItemHandler);
@@ -364,7 +364,7 @@ public class MinerLogic extends RecipeLogic implements IRecipeCapabilityHolder {
         Objects.requireNonNull(inputItemHandler).storage.setStackInSlot(0, oreDrop);
         Objects.requireNonNull(outputItemHandler).storage.clear();
 
-        var matches = getRLMachine().getRecipeType().searchRecipe(this,
+        var matches = getRecipeType().searchRecipe(this,
                 r -> RecipeHelper.matchContents(this, r).isSuccess());
 
         GTRecipe recipe = null; // attempt ore block that has a static gt recipe

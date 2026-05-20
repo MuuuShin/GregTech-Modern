@@ -39,17 +39,20 @@ public class MachineModeFancyConfigurator implements IFancyUIProvider {
 
     @Override
     public Widget createMainPage(FancyMachineUIWidget widget) {
-        var group = new MachineModeConfigurator(0, 0, 140, 20 * machine.getRecipeTypes().length + 4);
+        var group = new MachineModeConfigurator(0, 0, 140, 20 * machine.getRecipeLogic().getRecipeTypes().length + 4);
         group.setBackground(GuiTextures.BACKGROUND_INVERSE);
-        for (int i = 0; i < machine.getRecipeTypes().length; i++) {
+        for (int i = 0; i < machine.getRecipeLogic().getRecipeTypes().length; i++) {
             int finalI = i;
             group.addWidget(new ButtonWidget(2, 2 + i * 20, 136, 20, IGuiTexture.EMPTY,
                     cd -> setActiveRecipeTypeAndUpdateTickSubs(finalI)));
             group.addWidget(new ImageWidget(2, 2 + i * 20, 136, 20,
                     () -> new GuiTextureGroup(
                             ResourceBorderTexture.BUTTON_COMMON.copy()
-                                    .setColor(machine.getActiveRecipeType() == finalI ? ColorPattern.CYAN.color : -1),
-                            new TextTexture(machine.getRecipeTypes()[finalI].registryName.toLanguageKey()).setWidth(136)
+                                    .setColor(machine.getRecipeLogic().getActiveRecipeType() == finalI ?
+                                            ColorPattern.CYAN.color : -1),
+                            new TextTexture(
+                                    machine.getRecipeLogic().getRecipeTypes()[finalI].registryName.toLanguageKey())
+                                    .setWidth(136)
                                     .setType(TextTexture.TextType.ROLL))));
 
         }
@@ -64,8 +67,9 @@ public class MachineModeFancyConfigurator implements IFancyUIProvider {
     }
 
     private void setActiveRecipeTypeAndUpdateTickSubs(int activeRecipeType) {
-        boolean needUpdateTickSubs = !machine.keepSubscribing() && activeRecipeType != machine.getActiveRecipeType();
-        machine.setActiveRecipeType(activeRecipeType);
+        boolean needUpdateTickSubs = !machine.keepSubscribing() &&
+                activeRecipeType != machine.getRecipeLogic().getActiveRecipeType();
+        machine.getRecipeLogic().setActiveRecipeType(activeRecipeType);
         if (needUpdateTickSubs) {
             machine.getRecipeLogic().updateTickSubscription();
         }
@@ -79,23 +83,23 @@ public class MachineModeFancyConfigurator implements IFancyUIProvider {
 
         @Override
         public void writeInitialData(FriendlyByteBuf buffer) {
-            buffer.writeVarInt(machine.getActiveRecipeType());
+            buffer.writeVarInt(machine.getRecipeLogic().getActiveRecipeType());
         }
 
         @Override
         public void readInitialData(FriendlyByteBuf buffer) {
-            machine.setActiveRecipeType(buffer.readVarInt());
+            machine.getRecipeLogic().setActiveRecipeType(buffer.readVarInt());
         }
 
         @Override
         public void detectAndSendChanges() {
-            this.writeUpdateInfo(0, buf -> buf.writeVarInt(machine.getActiveRecipeType()));
+            this.writeUpdateInfo(0, buf -> buf.writeVarInt(machine.getRecipeLogic().getActiveRecipeType()));
         }
 
         @Override
         public void readUpdateInfo(int id, FriendlyByteBuf buffer) {
             if (id == 0) {
-                machine.setActiveRecipeType(buffer.readVarInt());
+                machine.getRecipeLogic().setActiveRecipeType(buffer.readVarInt());
             }
         }
     }

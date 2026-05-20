@@ -232,12 +232,13 @@ public class SimpleTieredMachine extends WorkableTieredMachine
                     storages.put(IO.IN, CWURecipeCapability.CAP, tieredMachine.importComputation);
                     storages.put(IO.OUT, CWURecipeCapability.CAP, tieredMachine.exportComputation);
 
-                    tieredMachine.getRecipeType().getRecipeUI().createEditableUITemplate(false, false).setupUI(template,
-                            new GTRecipeTypeUI.RecipeHolder(tieredMachine.recipeLogic::getProgressPercent,
-                                    storages,
-                                    new CompoundTag(),
-                                    Collections.emptyList(),
-                                    false, false));
+                    tieredMachine.getRecipeLogic().getRecipeType().getRecipeUI().createEditableUITemplate(false, false)
+                            .setupUI(template,
+                                    new GTRecipeTypeUI.RecipeHolder(tieredMachine.recipeLogic::getProgressPercent,
+                                            storages,
+                                            new CompoundTag(),
+                                            Collections.emptyList(),
+                                            false, false));
                     createBatterySlot().setupUI(template, tieredMachine);
                     // createCircuitConfigurator().setupUI(template, tieredMachine);
                 }

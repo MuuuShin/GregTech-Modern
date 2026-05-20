@@ -68,11 +68,13 @@ public class SimpleSteamMachine extends SteamWorkableMachine implements IUIMachi
     //////////////////////////////////////
 
     protected NotifiableItemStackHandler createImportItemHandler() {
-        return new NotifiableItemStackHandler(getRecipeType().getMaxInputs(ItemRecipeCapability.CAP), IO.IN);
+        return new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxInputs(ItemRecipeCapability.CAP),
+                IO.IN);
     }
 
     protected NotifiableItemStackHandler createExportItemHandler() {
-        return new NotifiableItemStackHandler(getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP), IO.OUT);
+        return new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP),
+                IO.OUT);
     }
 
     @Override
@@ -178,7 +180,7 @@ public class SimpleSteamMachine extends SteamWorkableMachine implements IUIMachi
         storages.put(IO.IN, ItemRecipeCapability.CAP, importItems.storage);
         storages.put(IO.OUT, ItemRecipeCapability.CAP, exportItems.storage);
 
-        var group = getRecipeType().getRecipeUI().createUITemplate(recipeLogic::getProgressPercent,
+        var group = getRecipeLogic().getRecipeType().getRecipeUI().createUITemplate(recipeLogic::getProgressPercent,
                 storages,
                 new CompoundTag(),
                 Collections.emptyList(),

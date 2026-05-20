@@ -5,7 +5,6 @@ import com.gregtechceu.gtceu.api.blockentity.BlockEntityCreationInfo;
 import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.machine.feature.*;
 import com.gregtechceu.gtceu.api.machine.trait.*;
-import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SaveField;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SyncToClient;
 import com.gregtechceu.gtceu.common.machine.trait.CleanroomReceiverTrait;
@@ -14,9 +13,6 @@ import com.gregtechceu.gtceu.utils.ISubscription;
 
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import lombok.Getter;
-import lombok.Setter;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.*;
 
@@ -30,12 +26,6 @@ public abstract class WorkableTieredMachine extends TieredEnergyMachine implemen
     @SaveField
     @SyncToClient
     public final RecipeLogic recipeLogic;
-    @Getter
-    public final GTRecipeType[] recipeTypes;
-    @Getter
-    @Setter
-    @SaveField
-    public int activeRecipeType;
     @Getter
     protected final CleanroomReceiverTrait cleanroomReceiver;
     @SaveField
@@ -64,8 +54,6 @@ public abstract class WorkableTieredMachine extends TieredEnergyMachine implemen
                                  int fluidImportSlots, int fluidExportSlots, Int2IntFunction tankScalingFunction) {
         super(info, tier);
         this.overclockTier = getMaxOverclockTier();
-        this.recipeTypes = getDefinition().getRecipeTypes();
-        this.activeRecipeType = 0;
         this.capabilitiesProxy = new EnumMap<>(IO.class);
         this.capabilitiesFlat = new EnumMap<>(IO.class);
         this.traitSubscriptions = new ArrayList<>();
@@ -86,23 +74,22 @@ public abstract class WorkableTieredMachine extends TieredEnergyMachine implemen
     public WorkableTieredMachine(BlockEntityCreationInfo info, int tier, Int2IntFunction tankScalingFunction) {
         super(info, tier);
         this.overclockTier = getMaxOverclockTier();
-        this.recipeTypes = getDefinition().getRecipeTypes();
-        this.activeRecipeType = 0;
         this.capabilitiesProxy = new EnumMap<>(IO.class);
         this.capabilitiesFlat = new EnumMap<>(IO.class);
         this.traitSubscriptions = new ArrayList<>();
         this.cleanroomReceiver = attachTrait(new CleanroomReceiverTrait());
         this.recipeLogic = attachTrait(new RecipeLogic());
         this.importItems = attachTrait(
-                new NotifiableItemStackHandler(getRecipeType().getMaxInputs(ItemRecipeCapability.CAP),
+                new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxInputs(ItemRecipeCapability.CAP),
                         IO.IN));
         this.exportItems = attachTrait(
-                new NotifiableItemStackHandler(getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP),
+                new NotifiableItemStackHandler(getRecipeLogic().getRecipeType().getMaxOutputs(ItemRecipeCapability.CAP),
                         IO.OUT));
-        this.importFluids = attachTrait(new NotifiableFluidTank(getRecipeType().getMaxInputs(FluidRecipeCapability.CAP),
-                tankScalingFunction.applyAsInt(getTier()), IO.IN));
+        this.importFluids = attachTrait(
+                new NotifiableFluidTank(getRecipeLogic().getRecipeType().getMaxInputs(FluidRecipeCapability.CAP),
+                        tankScalingFunction.applyAsInt(getTier()), IO.IN));
         this.exportFluids = attachTrait(
-                new NotifiableFluidTank(getRecipeType().getMaxOutputs(FluidRecipeCapability.CAP),
+                new NotifiableFluidTank(getRecipeLogic().getRecipeType().getMaxOutputs(FluidRecipeCapability.CAP),
                         tankScalingFunction.applyAsInt(getTier()), IO.OUT));
         this.importComputation = attachTrait(new NotifiableComputationContainer(IO.IN, true));
         this.exportComputation = attachTrait(new NotifiableComputationContainer(IO.OUT, false));
@@ -194,22 +181,5 @@ public abstract class WorkableTieredMachine extends TieredEnergyMachine implemen
     @Override
     public boolean keepSubscribing() {
         return false;
-    }
-
-    public GTRecipeType getRecipeType() {
-        return recipeTypes[activeRecipeType];
-    }
-
-    /**
-     * Sets a recipe type of the machine.
-     * FOR INTERNAL / TESTING USE ONLY!
-     * NOT SUPPORTED FOR PRODUCTION USE!
-     *
-     * @param newType The new recipe type
-     */
-    @ApiStatus.Internal
-    @VisibleForTesting
-    public void setRecipeType(GTRecipeType newType) {
-        recipeTypes[activeRecipeType] = newType;
     }
 }

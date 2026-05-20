@@ -55,7 +55,7 @@ public class RecipeIteratorStressTest {
     private static BusHolder getBussesAndForm(GameTestHelper helper) {
         WorkableMultiblockMachine controller = (WorkableMultiblockMachine) helper.getBlockEntity(new BlockPos(1, 2, 0));
         TestUtils.formMultiblock(controller);
-        controller.setRecipeType(LCR_RECIPE_TYPE);
+        controller.getRecipeLogic().setRecipeType(LCR_RECIPE_TYPE);
         ItemBusPartMachine inputBus1 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(2, 1, 0));
         ItemBusPartMachine inputBus2 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(2, 2, 0));
         ItemBusPartMachine outputBus1 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));

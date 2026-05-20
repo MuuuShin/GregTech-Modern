@@ -11,7 +11,6 @@ import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties;
 import com.gregtechceu.gtceu.api.machine.trait.*;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
-import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SaveField;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SyncToClient;
 import com.gregtechceu.gtceu.client.model.machine.MachineRenderState;
@@ -26,10 +25,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.longs.LongSets;
 import lombok.Getter;
-import lombok.Setter;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.*;
 
@@ -42,12 +38,6 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
     @SaveField
     @SyncToClient
     public final RecipeLogic recipeLogic;
-    @Getter
-    private final GTRecipeType[] recipeTypes;
-    @Getter
-    @Setter
-    @SaveField
-    private int activeRecipeType;
     @Getter
     protected final Map<IO, List<RecipeHandlerList>> capabilitiesProxy;
     @Getter
@@ -70,8 +60,6 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
     public WorkableMultiblockMachine(BlockEntityCreationInfo info,
                                      RecipeLogic recipeLogic) {
         super(info);
-        this.recipeTypes = getDefinition().getRecipeTypes();
-        this.activeRecipeType = 0;
         this.cleanroomReceiver = attachTrait(new CleanroomReceiverTrait());
         this.recipeLogic = attachTrait(recipeLogic);
         this.capabilitiesProxy = new EnumMap<>(IO.class);
@@ -287,23 +275,6 @@ public abstract class WorkableMultiblockMachine extends MultiblockControllerMach
             }
         }
         IRecipeLogicMachine.super.setWorkingEnabled(isWorkingAllowed);
-    }
-
-    public GTRecipeType getRecipeType() {
-        return recipeTypes[activeRecipeType];
-    }
-
-    /**
-     * Sets a recipe type of the machine.
-     * FOR INTERNAL / TESTING USE ONLY!
-     * NOT SUPPORTED FOR PRODUCTION USE!
-     *
-     * @param newType The new recipe type
-     */
-    @ApiStatus.Internal
-    @VisibleForTesting
-    public void setRecipeType(GTRecipeType newType) {
-        recipeTypes[activeRecipeType] = newType;
     }
 
     @Override

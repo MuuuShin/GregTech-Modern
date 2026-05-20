@@ -46,14 +46,15 @@ public class SteamLiquidBoilerMachine extends SteamBoilerMachine {
         this.fuelTank = attachTrait(new NotifiableFluidTank(1, 16 * FluidType.BUCKET_VOLUME, IO.IN));
         fuelTank.setFilter(fluid -> FUEL_CACHE.computeIfAbsent(fluid.getFluid(), f -> {
             if (isRemote()) return true;
-            return recipeLogic.getRecipeManager().getAllRecipesFor(getRecipeType()).stream().anyMatch(recipe -> {
-                var list = recipe.inputs.getOrDefault(FluidRecipeCapability.CAP, Collections.emptyList());
-                if (!list.isEmpty()) {
-                    return Arrays.stream(FluidRecipeCapability.CAP.of(list.get(0).content).getStacks())
-                            .anyMatch(stack -> stack.getFluid() == f);
-                }
-                return false;
-            });
+            return recipeLogic.getRecipeManager().getAllRecipesFor(getRecipeLogic().getRecipeType()).stream()
+                    .anyMatch(recipe -> {
+                        var list = recipe.inputs.getOrDefault(FluidRecipeCapability.CAP, Collections.emptyList());
+                        if (!list.isEmpty()) {
+                            return Arrays.stream(FluidRecipeCapability.CAP.of(list.get(0).content).getStacks())
+                                    .anyMatch(stack -> stack.getFluid() == f);
+                        }
+                        return false;
+                    });
         }));
     }
 

@@ -59,7 +59,7 @@ public class MachineModeProvider implements IBlockComponentProvider, IServerData
             if (recipeTypes.length > 1) {
                 if (blockEntity instanceof IRecipeLogicMachine recipeLogicMachine) {
                     ListTag recipeTypesTagList = new ListTag();
-                    GTRecipeType currentRecipeType = recipeLogicMachine.getRecipeType();
+                    GTRecipeType currentRecipeType = recipeLogicMachine.getRecipeLogic().getRecipeType();
                     int currentRecipeTypeIndex = -1;
                     for (int i = 0; i < recipeTypes.length; i++) {
                         if (recipeTypes[i] == currentRecipeType) {

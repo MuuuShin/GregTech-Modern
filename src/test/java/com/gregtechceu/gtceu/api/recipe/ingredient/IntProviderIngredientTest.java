@@ -159,7 +159,7 @@ public class IntProviderIngredientTest {
         WorkableMultiblockMachine controller = (WorkableMultiblockMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(1, 2, 0)));
         TestUtils.formMultiblock(controller);
-        controller.setRecipeType(LCR_RECIPE_TYPE);
+        controller.getRecipeLogic().setRecipeType(LCR_RECIPE_TYPE);
         ItemBusPartMachine inputBus1 = (ItemBusPartMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(2, 1, 0)));
         FluidHatchPartMachine inputHatch1 = (FluidHatchPartMachine) getMetaMachine(
@@ -181,7 +181,7 @@ public class IntProviderIngredientTest {
         WorkableElectricMultiblockMachine controller = (WorkableElectricMultiblockMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(2, 2, 0)));
         TestUtils.formMultiblock(controller);
-        controller.setRecipeType(CENTRIFUGE_RECIPE_TYPE);
+        controller.getRecipeLogic().setRecipeType(CENTRIFUGE_RECIPE_TYPE);
         ItemBusPartMachine inputBus1 = (ItemBusPartMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(1, 2, 0)));
         FluidHatchPartMachine inputHatch1 = (FluidHatchPartMachine) getMetaMachine(
@@ -264,7 +264,7 @@ public class IntProviderIngredientTest {
         SimpleTieredMachine machine = (SimpleTieredMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(0, 1, 0)));
 
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -335,7 +335,7 @@ public class IntProviderIngredientTest {
         SimpleTieredMachine machine = (SimpleTieredMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(0, 1, 0)));
 
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -365,7 +365,7 @@ public class IntProviderIngredientTest {
         SimpleTieredMachine machine = (SimpleTieredMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(0, 1, 0)));
 
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -424,7 +424,7 @@ public class IntProviderIngredientTest {
         SimpleTieredMachine machine = (SimpleTieredMachine) getMetaMachine(
                 helper.getBlockEntity(new BlockPos(0, 1, 0)));
 
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine

@@ -61,7 +61,7 @@ public class AdjacentFluidConditionTest {
 
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
 
-        machine.setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -82,7 +82,7 @@ public class AdjacentFluidConditionTest {
     public static void adjacentFluidConditionNoFluidPresentTest(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
 
-        machine.setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -104,7 +104,7 @@ public class AdjacentFluidConditionTest {
         helper.setBlock(new BlockPos(0, 1, 1), Blocks.LAVA);
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
 
-        machine.setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -128,7 +128,7 @@ public class AdjacentFluidConditionTest {
         helper.setBlock(new BlockPos(1, 1, 0), Blocks.WATER);
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
 
-        machine.setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -151,7 +151,7 @@ public class AdjacentFluidConditionTest {
         helper.setBlock(new BlockPos(1, 1, 0), Blocks.WATER);
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
 
-        machine.setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -173,7 +173,7 @@ public class AdjacentFluidConditionTest {
         helper.setBlock(new BlockPos(1, 1, 0), Blocks.LAVA);
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
 
-        machine.setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine
@@ -193,7 +193,7 @@ public class AdjacentFluidConditionTest {
     public static void adjacentFluidConditionTwoFluidNoFluidPresentTest(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(1, 1, 1));
 
-        machine.setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(ROCK_BREAKER_RECIPE_TYPE);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
                 .getCapabilitiesFlat(IO.IN, ItemRecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemOut = (NotifiableItemStackHandler) machine

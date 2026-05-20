@@ -99,7 +99,7 @@ public class OverclockLogicTest {
         WorkableMultiblockMachine controller = (WorkableMultiblockMachine) helper.getBlockEntity(new BlockPos(1, 2, 0));
         assert controller != null;
         TestUtils.formMultiblock(controller);
-        controller.setRecipeType(LCR_RECIPE_TYPE);
+        controller.getRecipeLogic().setRecipeType(LCR_RECIPE_TYPE);
         ItemBusPartMachine inputBus1 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(2, 1, 0));
         ItemBusPartMachine inputBus2 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(2, 2, 0));
         ItemBusPartMachine outputBus1 = (ItemBusPartMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
@@ -313,7 +313,7 @@ public class OverclockLogicTest {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
 
         assert machine != null;
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableEnergyContainer energyContainer = (NotifiableEnergyContainer) machine
                 .getCapabilitiesFlat(IO.IN, EURecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
@@ -344,7 +344,7 @@ public class OverclockLogicTest {
     public static void overclockLogicMVPowerTest(GameTestHelper helper) {
         SimpleTieredMachine machine = (SimpleTieredMachine) helper.getBlockEntity(new BlockPos(0, 1, 0));
         assert machine != null;
-        machine.setRecipeType(CR_RECIPE_TYPE);
+        machine.getRecipeLogic().setRecipeType(CR_RECIPE_TYPE);
         NotifiableEnergyContainer energyContainer = (NotifiableEnergyContainer) machine
                 .getCapabilitiesFlat(IO.IN, EURecipeCapability.CAP).get(0);
         NotifiableItemStackHandler itemIn = (NotifiableItemStackHandler) machine
