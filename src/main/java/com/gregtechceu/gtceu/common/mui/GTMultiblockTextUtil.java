@@ -61,7 +61,7 @@ public class GTMultiblockTextUtil {
         BooleanSyncValue isActive = syncManager.getOrCreateSyncHandler("isActive", BooleanSyncValue.class,
                 () -> new BooleanSyncValue(() -> weMachine.getRecipeLogic().isActive()));
 
-        var widget = Text.dynamic(() -> {
+        return Text.dynamic(() -> {
             String energyFormatted = FormattingUtil.formatNumbers(energyUsage.getLongValue());
 
             byte voltageTier = GTUtil.getFloorTierByVoltage(energyUsage.getLongValue());
@@ -78,8 +78,6 @@ public class GTMultiblockTextUtil {
         })
                 .asWidget()
                 .setEnabledIf($ -> isFormed.getBoolValue() && isActive.getBoolValue());
-
-        return widget;
     }
 
     public static TextWidget<?> addEnergyUsageExactLine(WorkableElectricMultiblockMachine weMachine,

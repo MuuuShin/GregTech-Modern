@@ -9,19 +9,17 @@ import com.gregtechceu.gtceu.api.sync_system.annotations.SyncToClient;
 import com.gregtechceu.gtceu.api.transfer.fluid.IFluidHandlerModifiable;
 import com.gregtechceu.gtceu.common.cover.data.BucketMode;
 import com.gregtechceu.gtceu.common.cover.data.VoidingMode;
-import com.gregtechceu.gtceu.common.mui.GTGuiTextures;
+import com.gregtechceu.gtceu.common.mui.GTMuiCoverUtil;
 import com.gregtechceu.gtceu.common.mui.GTMuiWidgets;
 import com.gregtechceu.gtceu.utils.GTMath;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-import brachy.modularui.api.drawable.Text;
 import brachy.modularui.factory.SidedPosGuiData;
 import brachy.modularui.screen.UISettings;
 import brachy.modularui.value.sync.EnumSyncValue;
@@ -131,13 +129,7 @@ public class AdvancedFluidVoidingCover extends FluidVoidingCover {
         syncManager.syncValue("voidingMode", voidingMode);
         syncManager.syncValue("voidingLimit", voidingLimit);
 
-        column.child(new GTMuiWidgets.EnumRowBuilder<>(VoidingMode.class)
-                .value(voidingMode)
-                .buttonTooltipSupplier((v) -> () -> Component.translatable(v.getTooltip()))
-                .overlay(16, GTGuiTextures.VOIDING_MODES)
-                .lang(Text.dynamic(() -> Component.translatable(getVoidingMode().tooltip)))
-                .build()
-                .marginTop(2));
+        GTMuiCoverUtil.addAdvancedVoidingModeRow(column, voidingMode);
 
         column.child(
                 GTMuiWidgets

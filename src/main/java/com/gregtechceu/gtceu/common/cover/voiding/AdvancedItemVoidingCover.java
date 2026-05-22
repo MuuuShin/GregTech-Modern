@@ -7,19 +7,17 @@ import com.gregtechceu.gtceu.api.cover.filter.SimpleItemFilter;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SaveField;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SyncToClient;
 import com.gregtechceu.gtceu.common.cover.data.VoidingMode;
-import com.gregtechceu.gtceu.common.mui.GTGuiTextures;
+import com.gregtechceu.gtceu.common.mui.GTMuiCoverUtil;
 import com.gregtechceu.gtceu.common.mui.GTMuiWidgets;
 import com.gregtechceu.gtceu.utils.GTUtil;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
-import brachy.modularui.api.drawable.Text;
 import brachy.modularui.factory.SidedPosGuiData;
 import brachy.modularui.screen.UISettings;
 import brachy.modularui.value.sync.EnumSyncValue;
@@ -127,13 +125,7 @@ public class AdvancedItemVoidingCover extends ItemVoidingCover {
         syncManager.syncValue("voidingMode", voidingMode);
         syncManager.syncValue("voidingLimit", voidingLimit);
 
-        column.child(new GTMuiWidgets.EnumRowBuilder<>(VoidingMode.class)
-                .value(voidingMode)
-                .buttonTooltipSupplier((v) -> () -> Component.translatable(v.getTooltip()))
-                .overlay(16, GTGuiTextures.VOIDING_MODES)
-                .lang(Text.dynamic(() -> Component.translatable(getVoidingMode().tooltip)))
-                .build()
-                .marginTop(2));
+        GTMuiCoverUtil.addAdvancedVoidingModeRow(column, voidingMode);
 
         column.child(GTMuiWidgets.createIntInputWithButtons(voidingLimit, () -> 1, () -> getVoidingMode().maxStackSize)
                 .setEnabledIf($ -> shouldShowStackSize()));

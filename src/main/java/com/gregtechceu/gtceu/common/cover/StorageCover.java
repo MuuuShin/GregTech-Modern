@@ -6,7 +6,6 @@ import com.gregtechceu.gtceu.api.cover.CoverDefinition;
 import com.gregtechceu.gtceu.api.cover.IMuiCover;
 import com.gregtechceu.gtceu.api.machine.MachineCoverContainer;
 import com.gregtechceu.gtceu.api.sync_system.annotations.SaveField;
-import com.gregtechceu.gtceu.api.sync_system.annotations.SyncToClient;
 import com.gregtechceu.gtceu.api.transfer.item.CustomItemStackHandler;
 
 import net.minecraft.core.Direction;
@@ -25,7 +24,6 @@ import java.util.List;
 public class StorageCover extends CoverBehavior implements IMuiCover {
 
     @SaveField
-    @SyncToClient
     public final CustomItemStackHandler inventory;
     private final int SIZE = 18;
 
@@ -39,8 +37,6 @@ public class StorageCover extends CoverBehavior implements IMuiCover {
                 return 1;
             }
         };
-
-        inventory.setOnContentsChanged(() -> syncDataHolder.markClientSyncFieldDirty("inventory"));
     }
 
     @Override

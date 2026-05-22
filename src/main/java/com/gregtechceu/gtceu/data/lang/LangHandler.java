@@ -449,6 +449,7 @@ public class LangHandler {
         provider.add("cover.item_filter.ignore_damage.disabled", "Respect Damage");
         provider.add("cover.item_filter.ignore_nbt.enabled", "Ignore NBT");
         provider.add("cover.item_filter.ignore_nbt.disabled", "Respect NBT");
+        provider.add("cover.voiding.voiding_mode.title", "Voiding Mode");
         provider.add("cover.voiding.voiding_mode.void_any", "Void Matching");
         provider.add("cover.voiding.voiding_mode.void_overflow", "Void Overflow");
         multilineLang(provider, "cover.voiding.voiding_mode.description",

@@ -69,7 +69,7 @@ public class GTMuiWidgets {
     }
 
     public static Flow createTitleBar(MachineDefinition definition, int panelWidth, UITexture background) {
-        return createTitleBar(() -> definition.asStack(), panelWidth, background);
+        return createTitleBar(definition::asStack, panelWidth, background);
     }
 
     public static Flow createTitleBar(Supplier<ItemStack> stackSupplier, int panelWidth, UITexture background) {
@@ -224,7 +224,7 @@ public class GTMuiWidgets {
                 .allowC2S();
     }
 
-    public static ModularPanel<?> createCircuitSlotPanel(IntSyncValue circuitSyncValue, PanelSyncManager syncManager) {
+    public static ModularPanel<?> createCircuitSlotPanel(IntSyncValue circuitSyncValue) {
         Grid buttonGrid = new Grid()
                 .coverChildren()
                 .gridOfSizeWidth(32, 8, (x, y, i) -> new ToggleButton()
@@ -257,7 +257,7 @@ public class GTMuiWidgets {
                                                          PanelSyncManager syncManager) {
         IntSyncValue circuitSyncValue = createCircuitSlotSyncValue(circuitSetter, circuitGetter);
         syncManager.syncValue("circuit_slot", circuitSyncValue);
-        return createCircuitSlotPanel(circuitSyncValue, syncManager);
+        return createCircuitSlotPanel(circuitSyncValue);
     }
 
     public static ButtonWidget<?> createCircuitSlotPanel(IHasCircuitSlot machine, ModularPanel<?> parentPanel,
@@ -268,7 +268,7 @@ public class GTMuiWidgets {
 
         syncManager.syncValue("circuit_slot", circuitSyncValue);
         IPanelHandler circuitPanelHandler = syncManager.syncedPanel("circuit_panel", true,
-                (sm, sh) -> createCircuitSlotPanel(circuitSyncValue, sm)
+                (sm, sh) -> createCircuitSlotPanel(circuitSyncValue)
                         .relative(parentPanel)
                         .leftRel(0.0f, -4, 1f));
 

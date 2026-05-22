@@ -67,7 +67,9 @@ public class GTByteBufAdapters {
             }
 
             @Override
-            public boolean areEqual(T a, T b) {
+            public boolean areEqual(@Nullable T a, @Nullable T b) {
+                if (a == null && b == null) return true;
+                if (a == null || b == null) return false;
                 String encoded1 = codec.encodeStart(JsonOps.INSTANCE, a).result().orElseThrow().toString();
                 String encoded2 = codec.encodeStart(JsonOps.INSTANCE, b).result().orElseThrow().toString();
                 return Objects.equals(encoded1, encoded2);

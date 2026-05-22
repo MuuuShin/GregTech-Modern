@@ -1,16 +1,16 @@
 package com.gregtechceu.gtceu.common.mui;
 
-import com.gregtechceu.gtceu.common.cover.data.DistributionMode;
-import com.gregtechceu.gtceu.common.cover.data.FilterMode;
-import com.gregtechceu.gtceu.common.cover.data.ManualIOMode;
-import com.gregtechceu.gtceu.common.cover.data.TransferMode;
+import com.gregtechceu.gtceu.common.cover.data.*;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.network.chat.Component;
 
 import brachy.modularui.api.drawable.Text;
 import brachy.modularui.value.sync.EnumSyncValue;
 import brachy.modularui.widgets.layout.Flow;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GTMuiCoverUtil {
 
     public static void addManualIORow(Flow column, EnumSyncValue<ManualIOMode> value) {
@@ -78,5 +78,21 @@ public class GTMuiCoverUtil {
                 .lang(Text.comp(Component.translatable(TransferMode.getTitle())))
                 .multiLangTooltip(transferModeDesc)
                 .build());
+    }
+
+    public static void addAdvancedVoidingModeRow(Flow column, EnumSyncValue<VoidingMode> value) {
+        Component[] voidingModeDesc = {
+                Component.translatable("cover.voiding.voiding_mode.description.0"),
+                Component.translatable("cover.voiding.voiding_mode.description.1")
+        };
+
+        column.child(new GTMuiWidgets.EnumRowBuilder<>(VoidingMode.class)
+                .value(value)
+                .buttonTooltipSupplier((v) -> () -> Component.translatable(v.getTooltip()))
+                .overlay(16, GTGuiTextures.VOIDING_MODES)
+                .lang(Text.dynamic(() -> Component.translatable(VoidingMode.getTitle())))
+                .multiLangTooltip(voidingModeDesc)
+                .build()
+                .marginTop(2));
     }
 }
